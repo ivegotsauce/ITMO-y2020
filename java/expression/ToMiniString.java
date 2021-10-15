@@ -1,9 +1,9 @@
-package expression.generic;
+package expression;
 
 /**
  * @author Georgiy Korneev (kgeorgiy@kgeorgiy.info)
  */
-public interface ToMiniString<T> {
+public interface ToMiniString {
     default String toMiniString() {
         return toString();
     }

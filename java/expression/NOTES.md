@@ -1,0 +1,1 @@
+1) Вынести evaluate в Operation

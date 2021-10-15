@@ -1,10 +1,8 @@
 package expression;
 
-import expression.generic.Expression;
-import expression.generic.TripleExpression;
-import expression.operator.Operator;
+import java.util.Objects;
 
-public class Variable<T> implements TripleExpression<T>, Expression<T> {
+public class Variable implements TripleExpression, Expression {
     protected String var;
 
     public Variable(String str) {
@@ -12,11 +10,11 @@ public class Variable<T> implements TripleExpression<T>, Expression<T> {
     }
 
     @Override
-    public T evaluate(T x, Operator<T> op) {
+    public int evaluate(int x) {
         return x;
     }
 
-    public T evaluate(T x, T y, T z, Operator<T> op) {
+    public int evaluate(int x, int y, int z) {
         if(var.equals("x")) return x;
         if(var.equals("y")) return y;
         if(var.equals("z")) return z;
@@ -29,8 +27,7 @@ public class Variable<T> implements TripleExpression<T>, Expression<T> {
 
     public boolean equals(Object obj) {
         if (obj != null && obj.getClass() == Variable.class) {
-            @SuppressWarnings("unchecked") Variable<T> that = (Variable<T>) obj;
-            return this.var.equals(that.var);
+            return this.var.equals(((Variable) obj).var);
         }
         return false;
     }

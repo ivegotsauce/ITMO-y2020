@@ -1,14 +1,15 @@
 package expression.parser;
 
+import expression.*;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import expression.*;
-import expression.generic.TripleExpression;
 
-public class GenericExpressionParser<T> implements GenericParser<T> {
+public class ExpressionParser implements Parser {
 
     private Map<Character, Character> hashMap = Stream.of(new Character[][]{
             { '(', '(' }, { ')', ')' }, { '*', '*' },
@@ -19,79 +20,79 @@ public class GenericExpressionParser<T> implements GenericParser<T> {
     private String[] source;
     private int pos;
 
-    public TripleExpression<T> parse(String expression) {
+    public TripleExpression parse(String expression) {
         this.source = smartSplit(expression);
         pos = 0;
-        TripleExpression<T> result = or();
+        TripleExpression result = or();
         return result;
     }
-    private TripleExpression<T> or() {
-        TripleExpression<T> first = xor();
+    private TripleExpression or() {
+        TripleExpression first = xor();
         while (pos < source.length) {
             String operator = source[pos];
             if (!(test(operator, "|", "|"))) {
                 break;
             }
 
-            TripleExpression<T> second = xor();
+            TripleExpression second = xor();
             if (operator.equals("|")) {
-                first = new Or<T>(first, second);
+                first = new Or(first, second);
             }
         }
         return first;
     }
-    private TripleExpression<T> xor() {
-        TripleExpression<T> first = and();
+    private TripleExpression xor() {
+        TripleExpression first = and();
         while (pos < source.length) {
             String operator = source[pos];
             if (!(test(operator, "^", "^"))) {
                 break;
             }
 
-            TripleExpression<T> second = and();
+            TripleExpression second = and();
             if (operator.equals("^")) {
-                first = new Xor<T>(first, second);
+                first = new Xor(first, second);
             }
         }
         return first;
     }
-    private TripleExpression<T> and() {
-        TripleExpression<T> first = expr();
+    private TripleExpression and() {
+        TripleExpression first = expr();
         while (pos < source.length) {
             String operator = source[pos];
             if (!(test(operator, "&", "&"))) {
                 break;
             }
 
-            TripleExpression<T> second = expr();
+            TripleExpression second = expr();
             if (operator.equals("&")) {
-                first = new And<T>(first, second);
+                first = new And(first, second);
             }
         }
         return first;
     }
 
-    private TripleExpression<T> expr() {
-        TripleExpression<T> first = term();
+    private TripleExpression expr() {
+        TripleExpression first = term();
         while (pos < source.length) {
             String operator = source[pos];
             if (!(test(operator, "+", "-"))) {
                 break;
             }
 
-            TripleExpression<T> second = term();
+            TripleExpression second = term();
             if (operator.equals("+")) {
-                first = new Add<T>(first, second);
+                first = new Add(first, second);
             }
             if (operator.equals("-")) {
-                first = new Subtract<T>(first, second);
+                first = new Subtract(first, second);
             }
         }
         return first;
     }
 
-    private TripleExpression<T> term() {
-        TripleExpression<T> first = factor(true);
+    private TripleExpression term() {
+        TripleExpression first = factor(true);
 
         while (pos < source.length) {
             String operator = source[pos];
@@ -99,21 +100,21 @@ public class GenericExpressionParser<T> implements GenericParser<T> {
                 break;
             }
 
-            TripleExpression<T> second = factor(true);
+            TripleExpression second = factor(true);
             if (operator.equals("*")) {
-                first = new Multiply<T>(first, second);
+                first = new Multiply(first, second);
             }
             if (operator.equals("/")) {
-                first = new Divide<T>(first, second);
+                first = new Divide(first, second);
             }
         }
         return first;
     }
 
-    private TripleExpression<T> factor(boolean ng) {
+    private TripleExpression factor(boolean ng) {
         boolean neg = !ng;
         String next = source[pos];
-        TripleExpression<T> result;
+        TripleExpression result;
         if (next.equals("-")) {
             pos++;
             return factor(neg);
@@ -125,20 +126,20 @@ public class GenericExpressionParser<T> implements GenericParser<T> {
             nx = source[pos];
             if(nx.equals(")")) {
                 pos++;
-                return !neg ? result : new Multiply<T>(new Const<T>("-1"), result);
+                return !neg ? result : new Multiply(new Const(-1), result);
             }
             throw new Error("error"  + " " + nx);
         }
         pos++;
         if (Character.isLetter(next.charAt(0))) {
-            return !neg ? new Variable<T>(next) : new Multiply<T>(new Const<T>("-1"), new Variable<T>(next));
+            return !neg ? new Variable(next) : new Multiply(new Const(-1), new Variable(next));
         }
 
         if (Character.isDigit(next.charAt(0))) {
             if(neg) {
                 next = "-" + next;
             }
-            return new Const<T>(next);
+            return new Const(Integer.parseInt(next));
         }
         else throw new Error("Wrong input is:" + next + " " + source[pos] + " ");
     }
@@ -146,7 +147,7 @@ public class GenericExpressionParser<T> implements GenericParser<T> {
     private String[] smartSplit(String expression) {
         List<String> list = new ArrayList();
         for (int i = 0; i < expression.length(); i++) {
-            if (Character.isLetter(expression.charAt(i))) {
+            if (i < expression.length() && Character.isLetter(expression.charAt(i))) {
                 StringBuilder sb = new StringBuilder();
                 while (i < expression.length() && Character.isLetter(expression.charAt(i))) {
                     sb.append(expression.charAt(i++));

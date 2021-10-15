@@ -1,44 +1,37 @@
 package expression;
 
-import expression.generic.Expression;
-import expression.generic.TripleExpression;
-import expression.operator.Operator;
+public class Const implements TripleExpression, Expression {
 
-import java.util.Objects;
-
-public class Const<T> implements TripleExpression<T>, Expression<T> {
-
-    protected String val;
+    protected int val;
     
-    public Const(String str) {
-        this.val = str;
+    public Const(int a) {
+        this.val = a;
     }
 
     @Override
-    public T evaluate(T x, Operator <T> op) {
-        return op.cnst(val);
+    public int evaluate(int x) {
+        return val;
     }
 
-    public T evaluate(T x, T y, T z, Operator<T> op) {
-        return op.cnst(val);
+    public int evaluate(int x, int y, int z) {
+        return val;
     }
 
     public String toString() {
-        return val;
+        return Integer.toString(val);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj != null && obj.getClass() == Const.class) {
-            @SuppressWarnings("unchecked")Const<T> that = (Const<T>) obj;
-            return this.val.equals(that.val);
+            return this.val == ((Const) obj).val;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(val);
+        return Integer.hashCode(val);
     }
 }
 

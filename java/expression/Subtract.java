@@ -1,18 +1,15 @@
 package expression;
 
-import expression.generic.Expression;
-import expression.generic.ToMiniString;
-import expression.generic.TripleExpression;
-import expression.operator.Operator;
+import expression.exceptions.ExpressionOverflowException;
 
-public class Subtract<T> extends Operation<T> implements Expression<T>, TripleExpression<T> {
+public class Subtract extends Operation implements Expression, TripleExpression {
 
-    public Subtract(ToMiniString<T> exp1, ToMiniString<T> exp2) {
+    public Subtract(ToMiniString exp1, ToMiniString exp2) {
         super(exp1, exp2);
     }
 
-    public T operation(T x, T y, Operator<T> op) {
-        return op.subtract(x, y);
+    public int operation(int x, int y) {
+        return x - y;
     }
 
     public String getSign() {
