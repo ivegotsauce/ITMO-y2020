@@ -1,7 +1,6 @@
 package expression;
 
-import expression.exceptions.CheckedSqrt;
-import expression.exceptions.ExpressionParser;
+import expression.parser.ExpressionParser;
 
 public class Main {
     public static void main(String[] args) {
