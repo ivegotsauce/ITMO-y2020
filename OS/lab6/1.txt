@@ -1,0 +1,13 @@
+mkdir LAB6
+cd LAB6
+ver > ver.txt
+systeminfo | find "Physical Memory" > systeminfo.txt
+wmic logicaldisk get description,name > wmic.txt
+
+mkdir TEST
+copy * TEST
+cd TEST
+copy * test.txt
+del systeminfo.txt
+del ver.txt
+del wmic.txt

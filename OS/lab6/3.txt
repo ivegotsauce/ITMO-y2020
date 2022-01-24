@@ -1,0 +1,10 @@
+sc query > services.txt
+
+"command1.cmd"
+  sc stop dnscache
+  timeout /t 5
+  sc query > services2.txt
+  command2.cmd
+
+"command2.cmd"
+  fc services.txt services2.txt > servicesCompare.txt

@@ -1,0 +1,6 @@
+hostname
+mkdir source
+net share temp=C:\LAB6\source /grant:user,FULL
+echo copy /z C:\Users\user\Desktop\Главная папка\всякое ИТМО\OS\CentOS8\CentOS8.ova \\DESKTOP-BS7A50O\temp > start.bat
+schtasks /create /sc MINUTE /tn task /tr C:\LAB6\start.bat
+fc C:\Windows\CentOS8\CentOS8.ova \\DESKTOP-BS7A50O\temp\CentOS8.ova
