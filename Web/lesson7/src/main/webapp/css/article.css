@@ -1,0 +1,93 @@
+.article .footer {
+    padding: 5px 5px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+}
+
+.article .right {
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 0.7rem;
+    right: 0.9rem;
+}
+
+.article .footer {
+    height: 2rem;
+}
+
+.article .right *{
+    vertical-align: middle;
+}
+
+.article .right img {
+    position: relative;
+    top: -0.1rem;
+    margin-left: 0.5rem;
+}
+
+.article .left {
+    font-size: larger;
+    position: relative;
+    left: 0.3rem;
+    font-weight: bold;
+    color: green;
+}
+
+.article .left img {
+    vertical-align: middle;
+}
+
+.article .left .positive-score {
+    vertical-align: middle;
+}
+
+.article .title {
+    font-size: larger;
+    color: #3B5998;
+    font-weight: bold;
+}
+
+.article .information {
+    font-size: smaller;
+    color: var(--grey-color);
+    position: relative;
+    top: 0.2rem;
+}
+
+.article .body {
+    color: var(--black-color);
+    border-left: 0.25rem solid var(--border-color);
+    padding-left: 0.8rem;
+}
+
+.article ul {
+    padding-left: 0;
+    margin-bottom: 0.4rem;
+    margin-top: 0.4rem;
+    list-style: none;
+    display: table;
+}
+
+.article .attachment li {
+    margin-top: 0.3rem;
+    padding-top: 0.2rem;
+    padding-left: 18px;
+    padding-bottom: 0.2rem;
+    color: var(--grey-color);
+    font-size: small;
+    background: url("../img/paperclip-16x16.png") 0 0.2rem no-repeat;
+}
+
+.article {
+    margin-bottom: 1rem;
+}
+
+.articles :last-child {
+    margin-bottom: 0;
+}
+
+.article .body :last-child {
+    margin-bottom: 0;
+}
+

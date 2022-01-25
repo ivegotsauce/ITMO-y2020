@@ -1,0 +1,2 @@
+driverquery /nh /fo table > drivers.txt
+sort /r drivers.txt /o sorted.txt

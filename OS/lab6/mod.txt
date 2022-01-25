@@ -1,0 +1,1 @@
+findstr /s /m "\<[ABCDWFGHIJKLMNOPQRSTUVWXYZ][abcdefjhijklmnopqrstuvwxyz]*\>" C:\LAB6\dir\*.*
