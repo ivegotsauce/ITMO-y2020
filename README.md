@@ -1,6 +1,2 @@
-# Projects
-
- * [Web App](Web/lesson11)
- * [Bin for Linux](OS/lab4)
- * [Implementor](java-advanced/java-solutions/info/kgeorgiy/ja/sharipov/implementor)
- * [Hi](fp/homework-3-ivegotsauce/hw3)
+Некоторые домашки КТ ИТМО (y2020)
+Some CT ITMO Homeworks (y2020)
