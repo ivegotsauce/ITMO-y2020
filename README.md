@@ -1,3 +1,5 @@
-Некоторые домашки КТ ИТМО (y2020)
+Некоторые домашки КТ ИТМО
 
-Some CT ITMO Homeworks (y2020)
+Some ITMO CT Homeworks
+
+y2020
